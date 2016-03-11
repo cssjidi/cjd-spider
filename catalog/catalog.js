@@ -18,15 +18,24 @@ catalog.use(logger('dev'));
 catalog.use(bodyParser.json());
 catalog.use(bodyParser.urlencoded({ extended: false }));
 catalog.use(cookieParser());
-catalog.use(sass({
-    src:  path.join(__dirname, 'scss'),
-    dest: path.join(__dirname, 'assets'),
+
+/*catalog.use('/assets',sass({
+    src:  __dirname + '/scss',
+    dest: __dirname + '/public/css',
     indentedSyntax: true,
+    prefix:  '/assets',
     debug:true,
+    sourceMap: true
+}));*/
+
+catalog.use(require('node-sass-middleware')({
+    src: path.join(__dirname, 'public'),
+    dest: path.join(__dirname, 'public'),
+    indentedSyntax: true,
     sourceMap: true
 }));
 
-catalog.use(express.static(path.join(__dirname, 'assets')));
+catalog.use(express.static(path.join(__dirname, 'public')));
 
 catalog.use('/', index);
 
