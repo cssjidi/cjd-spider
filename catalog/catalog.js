@@ -31,6 +31,7 @@ catalog.use(express.static(path.join(__dirname, 'assets')));
 catalog.use('/', index);
 
 catalog.use(function(req, res, next) {
+    console.log(1234);
     var err = new Error('Not Found');
     err.status = 404;
     next(err);
@@ -38,6 +39,7 @@ catalog.use(function(req, res, next) {
 
 if (catalog.get('env') === 'development') {
     catalog.use(function(err, req, res, next) {
+        console.log(5678);
         res.status(err.status || 500);
         res.render('error', {
             message: err.message,
